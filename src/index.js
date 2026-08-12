@@ -4,12 +4,25 @@ const caminhoArquivo = process.argv;
 const link = caminhoArquivo[2];
 
 fs.readFile(link, 'utf-8', (err, data) => {
-    verificaPalavrasDuplucadas(data);
+    quebraEmParagrafos(data);
+    //verificaPalavrasDuplucadas(data);
 })
 
 // Criar um array com as palavras
 // Contar as ocorrências de cada palavra
 // Montar um objeto com as palavras e suas respectivas contagens
+
+
+function quebraEmParagrafos(data){
+    const paragrafos = data.toLowerCase().split('\n'); // o método toLowerCase() converte todos os caracteres da string para minúsculas, garantindo que a contagem de palavras seja case-insensitive. O método split() divide a string em um array de substrings, usando o caractere de nova linha '\n' como separador. Isso significa que cada parágrafo do texto será um elemento do array paragrafos.
+    
+    const contagem = paragrafos.map(paragrafo => { // o método map() cria um novo array com os resultados da chamada de uma função para cada elemento do array original. No caso, a função verificaPalavrasDuplucadas é chamada para cada parágrafo do array paragrafos, e o resultado é armazenado no array contagem.
+       return verificaPalavrasDuplucadas(paragrafo); 
+    })
+
+    console.log(contagem);
+}
+
 
 function verificaPalavrasDuplucadas(data){
 
@@ -24,5 +37,5 @@ function verificaPalavrasDuplucadas(data){
         resultado[palavra] = (resultado[palavra] || 0) + 1; // se a palavra já existir no objeto resultado, incrementa sua contagem em 1; caso contrário, inicializa a contagem como 1
     })
 
-    console.log(resultado); // exibe o objeto resultado no console, mostrando as palavras e suas contagens
+    return resultado; // retorna o objeto resultado, que contém as palavras e suas respectivas contagens
 }
