@@ -4,11 +4,13 @@ const caminhoArquivo = process.argv;
 const link = caminhoArquivo[2];
 
 fs.readFile(link, "utf-8", (err, data) => {
-    if(err){
-        console.error(err.code);
-        return;
-    }
+  try {
+    if (err) throw err;
     contaPalavras(data);
+  } catch (err) {
+    if (err.code === "ENOENT") console.log("Erro que esperava");
+    else console.log("Outro erro");
+  }
 });
 
 function contaPalavras(data) {
