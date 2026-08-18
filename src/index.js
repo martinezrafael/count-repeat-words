@@ -1,5 +1,5 @@
-export function contaPalavras(data) {
-  const paragrafos = extraiParagrafos(data);
+export function contaPalavras(texto) {
+  const paragrafos = extraiParagrafos(texto);
   const contagem = paragrafos.flatMap((paragrafo) => {
     if (!paragrafo) return [];
     return verificaPalavrasDuplicadas(paragrafo);
@@ -8,16 +8,16 @@ export function contaPalavras(data) {
   return contagem;
 }
 
-function extraiParagrafos(data) {
-  return data.toLowerCase().split("\n");
+function extraiParagrafos(texto) {
+  return texto.toLowerCase().split("\n");
 }
 
 function limpaPalavras(palavra) {
   return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
 }
 
-function verificaPalavrasDuplicadas(data) {
-  const listaDePalavras = data.split(" ");
+function verificaPalavrasDuplicadas(texto) {
+  const listaDePalavras = texto.split(" ");
 
   const resultado = {};
 
