@@ -4,7 +4,7 @@ import { contaPalavras } from "./index.js";
 
 const caminhoArquivo = process.argv;
 const link = caminhoArquivo[2];
-const endereco = caminhoArquivo[3]
+const endereco = caminhoArquivo[3];
 
 fs.readFile(link, "utf-8", (err, data) => {
   try {
@@ -16,6 +16,7 @@ fs.readFile(link, "utf-8", (err, data) => {
   }
 });
 
+/*
 async function criaESalvaArquivo(listaPalavras, endereco){
   const arquivoNovo = `${endereco}/resultado.txt`
   const textoPalavras = JSON.stringify(listaPalavras);
@@ -25,4 +26,19 @@ async function criaESalvaArquivo(listaPalavras, endereco){
   } catch (error) {
     throw error;
   }
+}
+*/
+
+function criaESalvaArquivo(listaPalavras, endereco) {
+  const arquivoNovo = `${endereco}/resultado.txt`;
+  const textoPalavras = JSON.stringify(listaPalavras);
+  fs.promises
+    .writeFile(arquivoNovo, textoPalavras)
+    .then(() => {
+      console.log("Arquivo criado");
+    })
+    .catch((err) => {
+      throw err;
+    })
+    .finally(() => console.log("Operação finalizada"));
 }
